@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KAMISORI</title>
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: "#1100E9",
+              ebony: "#04050E",
+              geyser: "#D2DADE",
+            },
+            fontFamily: {
+              playfair: ["Playfair Display", "serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+    />
+    <style>
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+      }
+    </style>
+  </head>
+  <body class="bg-background">
+    <div class="min-h-[100vh] flex justify-center items-center">
+      <div>
+        <div class="flex justify-center items-center mb-10">
+          <img
+            src="./assets/img/logo.png"
+            alt="Kamisori"
+            class="w-[100px] h-[150px] md:w-[150px] md:h-[230px] lg:w-[200px] lg:h-[300px]"
+          />
+        </div>
+        <h1
+          class="text-2xl md:text-3xl lg:text-4xl font-bold text-geyser font-playfair mb-10 cursor-default text-shadow"
+        >
+          Sharp as Kamisori
+        </h1>
+        <div class="flex justify-evenly items-center text-geyser text-2xl">
+          <a href="https://www.facebook.com/KAMISOR1.razor?mibextid=ZbWKwL"
+            ><i
+              class="fa-brands fa-square-facebook bg-ebony p-2 rounded-lg cursor-pointer"
+            ></i
+          ></a>
+          <a
+            href="https://www.instagram.com/kamisori.2023/profilecard/?igsh=OTM0dWlhemF0OXU5"
+          >
+            <i
+              class="fa-brands fa-instagram bg-ebony p-2 rounded-lg cursor-pointer"
+            ></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
