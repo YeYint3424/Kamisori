@@ -34,10 +34,28 @@
       .text-shadow {
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
       }
+      .video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+      }
+      .content {
+        position: relative;
+        z-index: 1;
+      }
     </style>
   </head>
-  <body class="bg-background">
-    <div class="min-h-[100vh] flex justify-center items-center">
+  <body>
+    <video autoplay muted loop class="video-background">
+      <source src="./assets/video/background.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    
+    <div class="min-h-[100vh] flex justify-center items-center content">
       <div>
         <div class="flex justify-center items-center mb-10">
           <img
@@ -62,6 +80,13 @@
           >
             <i
               class="fa-brands fa-instagram bg-ebony p-2 rounded-lg cursor-pointer"
+            ></i>
+          </a>
+          <a
+            href="https://www.tiktok.com/@sharpas_kamisori"
+          >
+            <i
+              class="fa-brands fa-tiktok bg-ebony p-2 rounded-lg cursor-pointer"
             ></i>
           </a>
         </div>
