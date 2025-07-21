@@ -118,6 +118,13 @@
               class="fa-brands fa-instagram bg-ebony p-2 rounded-lg cursor-pointer"
             ></i>
           </a>
+           <a
+            href="https://www.tiktok.com/@sharpas_kamisori"
+          >
+            <i
+              class="fa-brands fa-tiktok bg-ebony p-2 rounded-lg cursor-pointer"
+            ></i>
+          </a>
         </div>
       </div>
     </div>
@@ -127,17 +134,14 @@
         const video = document.getElementById('bgVideo');
         const loadingScreen = document.getElementById('loadingScreen');
         
-        // Show video and hide loading screen when video is ready
         video.classList.add('playing');
         loadingScreen.style.opacity = '0';
         
-        // Remove loading screen after fade out completes
         setTimeout(() => {
           loadingScreen.style.display = 'none';
         }, 500);
       }
 
-      // Fallback in case canplay event doesn't fire
       window.addEventListener('load', function() {
         setTimeout(function() {
           const video = document.getElementById('bgVideo');
@@ -146,7 +150,7 @@
           if (!video.classList.contains('playing')) {
             videoReady();
           }
-        }, 3000); // Maximum wait time of 3 seconds
+        }, 3000);
       });
     </script>
   </body>
