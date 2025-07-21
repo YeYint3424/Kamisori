@@ -51,6 +51,11 @@
       .content {
         position: relative;
         z-index: 1;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .content.visible {
+        opacity: 1;
       }
       .loading-screen {
         position: fixed;
@@ -91,16 +96,20 @@
       autoplay
       muted
       loop
+      playsinline
+      preload="auto"
       class="video-background"
       id="bgVideo"
-      oncanplay="videoReady()"
     >
       <source src="./assets/video/background.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
 
     <!-- Main Content -->
-    <div class="min-h-[100vh] flex justify-center items-center content">
+    <div
+      class="min-h-[100vh] flex justify-center items-center content"
+      id="mainContent"
+    >
       <div>
         <div class="flex justify-center items-center mb-10">
           <img
@@ -137,27 +146,55 @@
     </div>
 
     <script>
-      function videoReady() {
+      document.addEventListener("DOMContentLoaded", function () {
         const video = document.getElementById("bgVideo");
         const loadingScreen = document.getElementById("loadingScreen");
+        const mainContent = document.getElementById("mainContent");
 
-        video.classList.add("playing");
-        loadingScreen.style.opacity = "0";
-
-        setTimeout(() => {
-          loadingScreen.style.display = "none";
-        }, 500);
-      }
-
-      window.addEventListener("load", function () {
-        setTimeout(function () {
-          const video = document.getElementById("bgVideo");
-          const loadingScreen = document.getElementById("loadingScreen");
-
-          if (!video.classList.contains("playing")) {
-            videoReady();
+        // First make sure video is loaded enough to play
+        video.addEventListener("loadedmetadata", function () {
+          // On some mobile devices, we need this additional check
+          if (video.readyState >= 3) {
+            video
+              .play()
+              .then(() => {
+                showContent();
+              })
+              .catch((e) => {
+                // If autoplay fails, still show content after delay
+                setTimeout(showContent, 1000);
+              });
           }
-        }, 3000);
+        });
+
+        // For browsers that don't fire loadedmetadata properly
+        video.addEventListener("canplay", function () {
+          video
+            .play()
+            .then(() => {
+              showContent();
+            })
+            .catch((e) => {
+              setTimeout(showContent, 1000);
+            });
+        });
+
+        // Fallback in case events don't fire
+        setTimeout(showContent, 4000);
+
+        function showContent() {
+          video.classList.add("playing");
+          mainContent.classList.add("visible");
+
+          // Fade out loading screen
+          loadingScreen.style.opacity = "0";
+          setTimeout(() => {
+            loadingScreen.style.display = "none";
+          }, 500);
+        }
+
+        // Preload the video immediately
+        video.load();
       });
     </script>
   </body>
