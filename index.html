@@ -42,20 +42,74 @@
         height: 100%;
         object-fit: cover;
         z-index: -1;
+        opacity: 0;
+        transition: opacity 1s ease;
+      }
+      .video-background.playing {
+        opacity: 1;
       }
       .content {
         position: relative;
         z-index: 1;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .content.visible {
+        opacity: 1;
+      }
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #1100e9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        transition: opacity 0.5s ease;
+      }
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #d2dade;
+        animation: spin 1s ease-in-out infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
       }
     </style>
   </head>
   <body>
-    <video autoplay muted loop class="video-background">
-      <source src="./assets/video/background.mp4" type="video/mp4">
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Video Background -->
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      class="video-background"
+      id="bgVideo"
+    >
+      <source src="./assets/video/background.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-    
-    <div class="min-h-[100vh] flex justify-center items-center content">
+
+    <!-- Main Content -->
+    <div
+      class="min-h-[100vh] flex justify-center items-center content"
+      id="mainContent"
+    >
       <div>
         <div class="flex justify-center items-center mb-10">
           <img
@@ -82,9 +136,7 @@
               class="fa-brands fa-instagram bg-ebony p-2 rounded-lg cursor-pointer"
             ></i>
           </a>
-          <a
-            href="https://www.tiktok.com/@sharpas_kamisori"
-          >
+          <a href="https://www.tiktok.com/@sharpas_kamisori">
             <i
               class="fa-brands fa-tiktok bg-ebony p-2 rounded-lg cursor-pointer"
             ></i>
@@ -92,5 +144,58 @@
         </div>
       </div>
     </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const video = document.getElementById("bgVideo");
+        const loadingScreen = document.getElementById("loadingScreen");
+        const mainContent = document.getElementById("mainContent");
+
+        // First make sure video is loaded enough to play
+        video.addEventListener("loadedmetadata", function () {
+          // On some mobile devices, we need this additional check
+          if (video.readyState >= 3) {
+            video
+              .play()
+              .then(() => {
+                showContent();
+              })
+              .catch((e) => {
+                // If autoplay fails, still show content after delay
+                setTimeout(showContent, 1000);
+              });
+          }
+        });
+
+        // For browsers that don't fire loadedmetadata properly
+        video.addEventListener("canplay", function () {
+          video
+            .play()
+            .then(() => {
+              showContent();
+            })
+            .catch((e) => {
+              setTimeout(showContent, 1000);
+            });
+        });
+
+        // Fallback in case events don't fire
+        setTimeout(showContent, 4000);
+
+        function showContent() {
+          video.classList.add("playing");
+          mainContent.classList.add("visible");
+
+          // Fade out loading screen
+          loadingScreen.style.opacity = "0";
+          setTimeout(() => {
+            loadingScreen.style.display = "none";
+          }, 500);
+        }
+
+        // Preload the video immediately
+        video.load();
+      });
+    </script>
   </body>
 </html>
