@@ -58,7 +58,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: #1100E9;
+        background-color: #1100e9;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -70,11 +70,13 @@
         height: 50px;
         border: 5px solid rgba(255, 255, 255, 0.3);
         border-radius: 50%;
-        border-top-color: #D2DADE;
+        border-top-color: #d2dade;
         animation: spin 1s ease-in-out infinite;
       }
       @keyframes spin {
-        to { transform: rotate(360deg); }
+        to {
+          transform: rotate(360deg);
+        }
       }
     </style>
   </head>
@@ -85,11 +87,18 @@
     </div>
 
     <!-- Video Background -->
-    <video autoplay muted loop class="video-background" id="bgVideo" oncanplay="videoReady()">
-      <source src="./assets/video/background.mp4" type="video/mp4">
+    <video
+      autoplay
+      muted
+      loop
+      class="video-background"
+      id="bgVideo"
+      oncanplay="videoReady()"
+    >
+      <source src="./assets/video/background.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-    
+
     <!-- Main Content -->
     <div class="min-h-[100vh] flex justify-center items-center content">
       <div>
@@ -118,9 +127,7 @@
               class="fa-brands fa-instagram bg-ebony p-2 rounded-lg cursor-pointer"
             ></i>
           </a>
-           <a
-            href="https://www.tiktok.com/@sharpas_kamisori"
-          >
+          <a href="https://www.tiktok.com/@sharpas_kamisori">
             <i
               class="fa-brands fa-tiktok bg-ebony p-2 rounded-lg cursor-pointer"
             ></i>
@@ -131,23 +138,23 @@
 
     <script>
       function videoReady() {
-        const video = document.getElementById('bgVideo');
-        const loadingScreen = document.getElementById('loadingScreen');
-        
-        video.classList.add('playing');
-        loadingScreen.style.opacity = '0';
-        
+        const video = document.getElementById("bgVideo");
+        const loadingScreen = document.getElementById("loadingScreen");
+
+        video.classList.add("playing");
+        loadingScreen.style.opacity = "0";
+
         setTimeout(() => {
-          loadingScreen.style.display = 'none';
+          loadingScreen.style.display = "none";
         }, 500);
       }
 
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          const video = document.getElementById('bgVideo');
-          const loadingScreen = document.getElementById('loadingScreen');
-          
-          if (!video.classList.contains('playing')) {
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          const video = document.getElementById("bgVideo");
+          const loadingScreen = document.getElementById("loadingScreen");
+
+          if (!video.classList.contains("playing")) {
             videoReady();
           }
         }, 3000);
